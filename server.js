@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 let tasks = [];
-addTask("Task1", "7/9/2019", "Build new Module");
+tasks.push({name: "Task1", due: "1/9/2019", desc: "Get week 5 lab marked."});
 
 
 app.get("/", function(req,res) {
@@ -29,18 +29,9 @@ app.get("/listtasks", function(req,res) {
 });
 
 app.post("/add", function(req,res) {
-    let taskName = req.body.taskName;
-    let taskDue = req.body.taskDue;
-    let taskDesc = req.body.taskDesc;
-
-    addTask(taskName, taskDue, taskDesc);
+    tasks.push(req.body);
 
     res.render("newtask.html");
 });
-
-function addTask(nameAdd, dueAdd, descAdd) {
-    tasks.push({name: nameAdd, due: dueAdd, desc: descAdd})
-    console.log(tasks);
-}
 
 app.listen(8080);
